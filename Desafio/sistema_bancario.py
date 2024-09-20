@@ -52,13 +52,19 @@ def imprimir_extrato():
     global lista_de_depositos
     global lista_de_saques
 
-    print("Depósitos realizados na sua conta")
+    if len(lista_de_depositos) == 0:
+        print("Não há depósitos realizados.")
+    else:
+        print("Depósitos realizados na sua conta")
     for deposito in lista_de_depositos:
         print(f"R$ {deposito:.2f}")
 
     print("==============================")
 
-    print("Saques realizados na sua conta")
+    if len(lista_de_saques) == 0:
+        print("Não há saques realizados.")
+    else:    
+        print("Saques realizados na sua conta")
     for saque in lista_de_saques:
         print(f"R$ {saque:.2f}")
 
