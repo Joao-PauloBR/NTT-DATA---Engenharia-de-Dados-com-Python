@@ -8,7 +8,7 @@ print('''
 ''')
 
 saldo = 1500
-contador = 0
+numero_saques = 0
 lista_de_saques = []
 lista_de_depositos = []
 
@@ -28,16 +28,16 @@ def depositar():
 
 def sacar():
     global saldo
-    global contador
+    global numero_saques
     global lista_de_saques
-    if contador < 3:
+    if numero_saques < 3:
         saque = float(input("Digite o valor que deseja sacar: "))
         if saque <= saldo and saque >= 0.01:
             if saque <= 500:
                 saldo -= saque
                 print(f"Saque efetuado com sucesso. Você sacou R$ {saque:.2f}. Seu saldo atual é de R$ {saldo:.2f}")
                 lista_de_saques.append(saque)
-                contador += 1
+                numero_saques += 1
             elif saque > 500:
                 print("Você possui saldo suficiente, porém não podemos permitir saques maiores do que R$ 500.00")
         elif saque > saldo:
