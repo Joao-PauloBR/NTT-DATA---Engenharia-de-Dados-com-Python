@@ -69,7 +69,7 @@ Esta pasta contém subdiretórios com exercícios focados em conceitos fundament
     - `readme.md`: Arquivo de documentação específico do desafio, contendo o enunciado e as instruções para a implementação do sistema bancário.
     - `sistema_bancario.py`: Script Python com a implementação das funcionalidades do sistema bancário, incluindo operações de depósito, saque e exibição do extrato.
 - **Objetivo:** Aplicar os conceitos aprendidos em um desafio mais complexo, simulando um caso de uso real de um sistema de gerenciamento bancário.
-- [Leia mais sobre o desafio aqui](link_para_o_README_do_desafio).
+- [Leia mais sobre o desafio aqui](https://github.com/Joao-PauloBR/nttdata-python-bootcamp/blob/main/Desafio/readme.md).
 
 ## 🧑‍🏫 Instrutor
 
@@ -151,7 +151,7 @@ Antes de executar os scripts deste repositório, você precisa ter o Python inst
 
 Após configurar o ambiente Python, clone este repositório para sua máquina:
    ```bash
-   git clone https://github.com/Joao-PauloBR/NTT-DATA---Engenharia-de-Dados-com-Python.git
+   git clone https://github.com/Joao-PauloBR/nttdata-python-bootcamp.git
    ```
 
 ### 3. Navegar pelas Pastas e Executar os Scripts
