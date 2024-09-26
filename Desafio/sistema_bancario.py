@@ -15,7 +15,7 @@ numero_depositos = 0
 lista_de_saques = []
 lista_de_depositos = []
 data_hora_saque = []
-data_hora_deposito = []                 # contador_transação == 10 | contador_deposito + contador_saque = contador_transação não permita mais transações
+data_hora_deposito = []
 mascara_ptbr = "%d/%m/%Y %H:%M"
 quantidade_transacao = 10
 
