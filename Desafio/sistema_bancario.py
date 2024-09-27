@@ -17,7 +17,7 @@ usuarios = []  # Lista de usuários
 contas = []  # Lista de contas
 numero_conta_sequencial = 1  # Controle para o número da conta
 usuario_atual = None  # Variável para armazenar o usuário atualmente logado
-conta_atual = None  # Variável para armazenar a conta corrente selecionada
+conta_atual = None  # Variável para armazenar a conta-corrente selecionada
 
 def cadastrar_usuario():
     global usuarios

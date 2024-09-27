@@ -13,7 +13,7 @@ Este é um sistema bancário desenvolvido em Python para a NTT DATA. O sistema o
 - Listar todos os usuários cadastrados
 
 ### 2. Gerenciamento de Contas
-- Criar nova conta corrente
+- Criar nova conta-corrente
 - Deletar conta existente
 - Listar todas as contas cadastradas
 
@@ -24,7 +24,7 @@ Este é um sistema bancário desenvolvido em Python para a NTT DATA. O sistema o
 
 ### 4. Sistema de Autenticação
 - Selecionar usuário ativo
-- Selecionar conta corrente ativa
+- Selecionar conta-corrente ativa
 
 ## Regras de Negócio
 
@@ -62,11 +62,11 @@ O sistema opera em três etapas principais:
 
 ### 1ª Etapa - Cadastro de Usuário e Conta
 - Opções para cadastrar, deletar e editar usuários
-- Opções para cadastrar e deletar contas correntes
+- Opções para cadastrar e deletar contas-correntes
 
 ### 2ª Etapa - Escolha de Usuário e Conta
 - Selecionar o usuário ativo
-- Selecionar a conta corrente ativa
+- Selecionar a conta-corrente ativa
 - Listar usuários e contas cadastradas
 
 ### 3ª Etapa - Operações Bancárias
