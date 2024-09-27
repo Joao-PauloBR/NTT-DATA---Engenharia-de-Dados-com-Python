@@ -9,6 +9,7 @@ print('''
                                                                 att. NTT DATA.
 ''')
 
+# Variáveis existentes para transações financeiras
 saldo = 1500
 numero_saques = 0
 numero_depositos = 0
@@ -19,7 +20,86 @@ data_hora_deposito = []
 mascara_ptbr = "%d/%m/%Y %H:%M"
 quantidade_transacao = 10
 
+# Novas listas para a versão 3.0
+usuarios = []  # Lista de usuários
+contas = []  # Lista de contas
+numero_conta_sequencial = 1  # Controle para o número da conta
+
+# Funções para a versão 3.0
+
+def cadastrar_usuario():
+    global usuarios
+    nome = input("Digite o nome do usuário: ")
+    data_nascimento = input("Digite a data de nascimento (dd/mm/yyyy): ")
+    cpf = input("Digite o CPF (somente números): ")
+    endereco = input("Digite o endereço (logradouro, número - Bairro - Cidade/Estado): ")
+    
+    # Verificar se o CPF já existe
+    for usuario in usuarios:
+        if usuario['cpf'] == cpf:
+            print("Erro: Já existe um usuário cadastrado com este CPF.")
+            return
+    
+    # Criar e adicionar o novo usuário
+    usuario = {
+        "nome": nome,
+        "data_nascimento": data_nascimento,
+        "cpf": cpf,
+        "endereco": endereco
+    }
+    usuarios.append(usuario)
+    print("Usuário cadastrado com sucesso!")
+
+def cadastrar_conta():
+    global contas, numero_conta_sequencial
+    cpf = input("Digite o CPF do usuário para vincular a conta: ")
+
+    # Verificar se o usuário existe
+    usuario_encontrado = None
+    for usuario in usuarios:
+        if usuario["cpf"] == cpf:
+            usuario_encontrado = usuario
+            break
+    
+    if usuario_encontrado:
+        conta = {
+            "agencia": "0001",
+            "numero_conta": numero_conta_sequencial,
+            "usuario": usuario_encontrado
+        }
+        contas.append(conta)
+        numero_conta_sequencial += 1
+        print(f"Conta número {conta['numero_conta']} criada com sucesso para o usuário {usuario_encontrado['nome']}!")
+    else:
+        print("Erro: Usuário não encontrado. Cadastre o usuário primeiro.")
+
+def listar_usuarios():
+    if len(usuarios) == 0:
+        print("Nenhum usuário cadastrado.")
+    else:
+        print("Usuários cadastrados:")
+        for usuario in usuarios:
+            print(f"Nome: {usuario['nome']}, CPF: {usuario['cpf']}")
+
+def listar_contas():
+    if len(contas) == 0:
+        print("Nenhuma conta cadastrada.")
+    else:
+        print("Contas cadastradas:")
+        for conta in contas:
+            print(f"Agência: {conta['agencia']}, Conta: {conta['numero_conta']}, Usuário: {conta['usuario']['nome']}")
+
+# Modificação da função que controla as transações para verificar se há usuários e contas cadastrados
+def verificar_usuarios_e_contas():
+    if len(usuarios) == 0 or len(contas) == 0:
+        print("Erro: Para realizar transações, é necessário ter pelo menos um usuário e uma conta cadastrados.")
+        return False
+    return True
+
 def depositar():
+    if not verificar_usuarios_e_contas():
+        return
+    
     global saldo
     global lista_de_depositos
     global quantidade_transacao
@@ -42,6 +122,9 @@ def depositar():
         print("Você excedeu o número de transações permitidas. Volte amanhã para realizar mais operações.")
 
 def sacar():
+    if not verificar_usuarios_e_contas():
+        return
+    
     global saldo
     global numero_saques
     global lista_de_saques
@@ -68,6 +151,9 @@ def sacar():
         print("Você excedeu o número de transações permitidas. Volte amanhã para realizar mais operações.")
 
 def imprimir_extrato():
+    if not verificar_usuarios_e_contas():
+        return
+    
     global saldo
     global lista_de_depositos
     global lista_de_saques
@@ -105,35 +191,54 @@ R$ {saque:.2f}''')
 
     print(f"Saldo atual da sua conta: R$ {saldo:.2f}")
 
-while(True):
-    try:
-        print('''      
-            =========== MENU ===========      
-            
-            [1] - Depósito
-            [2] - Extrato
-            [3] - Saque
-            [0] - Sair
-            
-            ============================  
-        ''')
+# Adicionar as novas opções no menu
+def menu():
+    while(True):
+        try:
+            print('''      
+                =========== MENU ===========      
+                
+                [1] - Depósito
+                [2] - Extrato
+                [3] - Saque
+                [4] - Cadastrar Usuário
+                [5] - Cadastrar Conta
+                [6] - Listar Usuários
+                [7] - Listar Contas
+                [0] - Sair
+                
+                ============================  
+            ''')
 
-        opcao = int(input("Escolha uma das opções: "))
-        if opcao == 1:
-            depositar()
+            opcao = int(input("Escolha uma das opções: "))
+            if opcao == 1:
+                depositar()
 
-        elif opcao == 2:
-            imprimir_extrato()
-        
-        elif opcao == 3:
-            sacar()
+            elif opcao == 2:
+                imprimir_extrato()
 
-        elif opcao == 0:
-            break
-        
-        else:
-            print("Número inválido. Digite uma das opções mostradas no MENU.")
+            elif opcao == 3:
+                sacar()
 
-    except ValueError:
-     # Mensagem de erro se o usuário digitar algo que não seja um número inteiro
-        print("Entrada inválida. Por favor, digite um número inteiro.")
+            elif opcao == 4:
+                cadastrar_usuario()
+
+            elif opcao == 5:
+                cadastrar_conta()
+
+            elif opcao == 6:
+                listar_usuarios()
+
+            elif opcao == 7:
+                listar_contas()
+
+            elif opcao == 0:
+                break
+
+            else:
+                print("Número inválido. Digite uma das opções mostradas no MENU.")
+
+        except ValueError:
+            print("Entrada inválida. Por favor, digite um número inteiro.")
+
+menu()
