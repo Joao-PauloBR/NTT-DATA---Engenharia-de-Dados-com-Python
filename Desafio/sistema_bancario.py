@@ -1,7 +1,7 @@
 from datetime import datetime
 
 print('''
-            Olá, seja bem-vindo a caixa digitadora da NTT DATA!
+            Olá, seja bem-vindo ao sistema bancário da NTT DATA!
         Todo o sistema foi remodelado para se adequar as necessidades do mercado. Espero que goste!
         Qualquer contratempo que tiver, não hesite em chamar um funcionário responsável e contate o suporte
         para que possamos corrigir o problema o mais rápido possível!
