@@ -13,7 +13,6 @@ MASCARA_DATA_HORA_PTBR = "%d/%m/%Y %H:%M"
 MASCARA_DATA_PTBR = "%d/%m/%Y"
 QUANTIDADE_TRANSACAO = 10
 
-# Novas listas para a versão 3.0
 usuarios = []  # Lista de usuários
 contas = []  # Lista de contas
 numero_conta_sequencial = 1  # Controle para o número da conta
@@ -28,14 +27,13 @@ def cadastrar_usuario():
         data_nascimento_str = input("Digite a data de nascimento (dd/mm/yyyy): ")
         try:
             data_nascimento = datetime.strptime(data_nascimento_str, MASCARA_DATA_PTBR).date()
-            break  # Se a conversão for bem-sucedida, sai do loop
+            break
         except ValueError:
             print("Erro: Data no formato inválido. Por favor, use o formato dd/mm/yyyy.")
     
     cpf = input("Digite o CPF (somente números): ")
     endereco = input("Digite o endereço (logradouro, número - Bairro - Cidade/Estado): ")
     
-    # Verificar se o CPF já existe
     for usuario in usuarios:
         if usuario['cpf'] == cpf:
             print("Erro: Já existe um usuário cadastrado com este CPF.")
@@ -53,7 +51,6 @@ def cadastrar_usuario():
 def deletar_usuario():
     cpf = input("Digite o CPF do usuário que deseja deletar: ")
 
-    # Verificar se o usuário existe
     usuario_encontrado = None
     for usuario in usuarios:
         if usuario["cpf"] == cpf:
@@ -61,7 +58,6 @@ def deletar_usuario():
             break
 
     if usuario_encontrado:
-        # Verificar se há contas vinculadas a este usuário
         contas_vinculadas = [conta for conta in contas if conta['usuario'] == usuario_encontrado]
         if len(contas_vinculadas) > 0:
             print(f"Erro: O usuário ainda tem {len(contas_vinculadas)} conta(s) vinculada(s). Delete todas as contas antes de excluir o usuário.")
@@ -74,7 +70,6 @@ def deletar_usuario():
 def editar_usuario():
     cpf = input("Digite o CPF do usuário que deseja editar: ")
     
-    # Verificar se o usuário com o CPF existe
     usuario_encontrado = None
     for usuario in usuarios:
         if usuario['cpf'] == cpf:
@@ -90,13 +85,12 @@ def editar_usuario():
             nova_data_nascimento_str = input(f"Nova data de nascimento ({usuario_encontrado['data_nascimento'].strftime(MASCARA_DATA_PTBR)}): ") or usuario_encontrado['data_nascimento'].strftime(MASCARA_DATA_PTBR)
             try:
                 nova_data_nascimento = datetime.strptime(nova_data_nascimento_str, MASCARA_DATA_PTBR).date()
-                break  # Se a conversão for bem-sucedida, sai do loop
+                break
             except ValueError:
                 print("Erro: Data no formato inválido. Por favor, use o formato dd/mm/yyyy.")
         
         novo_endereco = input(f"Novo endereço ({usuario_encontrado['endereco']}): ") or usuario_encontrado['endereco']
         
-        # Atualizar informações
         usuario_encontrado['nome'] = novo_nome
         usuario_encontrado['data_nascimento'] = nova_data_nascimento
         usuario_encontrado['endereco'] = novo_endereco
@@ -109,7 +103,6 @@ def cadastrar_conta():
     global contas, numero_conta_sequencial
     cpf = input("Digite o CPF do usuário para vincular a conta: ")
 
-    # Verificar se o usuário existe
     usuario_encontrado = None
     for usuario in usuarios:
         if usuario["cpf"] == cpf:
@@ -138,10 +131,9 @@ def cadastrar_conta():
 def deletar_conta():
     numero_conta = int(input("Digite o número da conta que deseja deletar: "))
 
-    # Verificar se a conta existe
     conta_encontrada = None
     for conta in contas:
-        if conta['numero_conta'] == numero_conta:  # Aqui corrigimos para comparar com 'numero_conta'
+        if conta['numero_conta'] == numero_conta:
             conta_encontrada = conta
             break
 
@@ -171,12 +163,10 @@ def listar_contas():
         for conta in contas:
             print(f"Agência: {conta['agencia']}, Conta: {conta['numero_conta']}, Usuário: {conta['usuario']['nome']}, CPF: {conta['usuario']['cpf']}")
 
-# Nova função para trocar o usuário atualmente logado
 def trocar_usuario():
     global usuario_atual, conta_atual
     cpf = input("Digite o CPF do usuário: ")
 
-    # Verificar se o usuário existe
     usuario_encontrado = None
     for usuario in usuarios:
         if usuario["cpf"] == cpf:
@@ -185,19 +175,17 @@ def trocar_usuario():
     
     if usuario_encontrado:
         usuario_atual = usuario_encontrado
-        conta_atual = None  # Resetar a conta selecionada
+        conta_atual = None
         print(f"Usuário {usuario_atual['nome']} selecionado com sucesso!")
     else:
         print("Erro: Usuário não encontrado.")
 
-# Nova função para trocar a conta-corrente atualmente selecionada
 def trocar_conta_corrente():
     global conta_atual
     if usuario_atual is None:
         print("Erro: Nenhum usuário selecionado.")
         return
     
-    # Mostrar contas do usuário atual
     contas_do_usuario = [conta for conta in contas if conta["usuario"]["cpf"] == usuario_atual["cpf"]]
     
     if len(contas_do_usuario) == 0:
@@ -222,7 +210,6 @@ def trocar_conta_corrente():
     else:
         print("Erro: Conta não encontrada.")
 
-# Verificação para garantir que há um usuário e uma conta selecionada
 def verificar_usuario_e_conta():
     if usuario_atual is None:
         print("Erro: Nenhum usuário selecionado.")
@@ -309,13 +296,10 @@ R$ {saque:.2f}''')
 
     print(f"Saldo atual da sua conta: R$ {conta_atual['saldo']:.2f}")
 
-
-# Adicionar as novas opções no menu
 def menu():
-    etapa_atual = 1  # Controla a etapa atual
+    etapa_atual = 1
 
     while True:
-        # 1ª ETAPA - Cadastro de usuário e conta
         while etapa_atual == 1:
             try:
                 print('''      
@@ -359,7 +343,7 @@ def menu():
                     elif len(usuarios) > 0 and len(contas) == 0:
                         print("Erro: É necessário cadastrar pelo menos uma conta-corrente para continuar.")
                     else:
-                        etapa_atual = 2  # Avançar para a 2ª etapa
+                        etapa_atual = 2
                 elif opcao == 7:
                     print("Saindo...")
                     return
@@ -369,7 +353,6 @@ def menu():
             except ValueError:
                 print("Entrada inválida. Por favor, digite um número inteiro.")
 
-        # 2ª ETAPA - Escolha de usuário e conta
         while etapa_atual == 2:
             try:
                 print('''      
@@ -389,7 +372,7 @@ def menu():
                 opcao = int(input("Escolha uma das opções: "))
 
                 if opcao == 1:
-                    etapa_atual = 1  # Voltar para a 1ª etapa
+                    etapa_atual = 1
                 elif opcao == 2:
                     trocar_usuario()
                 elif opcao == 3:
@@ -400,7 +383,7 @@ def menu():
                     listar_contas()
                 elif opcao == 6:
                     if usuario_atual and conta_atual:
-                        etapa_atual = 3  # Avançar para a 3ª etapa
+                        etapa_atual = 3
                     else:
                         print("Erro: Escolha um usuário e uma conta-corrente antes de avançar.")
                 elif opcao == 7:
@@ -412,7 +395,6 @@ def menu():
             except ValueError:
                 print("Entrada inválida. Por favor, digite um número inteiro.")
 
-        # 3ª ETAPA - Operações bancárias
         while etapa_atual == 3:
             try:
                 print('''      
@@ -430,7 +412,7 @@ def menu():
                 opcao = int(input("Escolha uma das opções: "))
 
                 if opcao == 1:
-                    etapa_atual = 2  # Voltar para a 2ª etapa
+                    etapa_atual = 2
                 elif opcao == 2:
                     depositar()
                 elif opcao == 3:
