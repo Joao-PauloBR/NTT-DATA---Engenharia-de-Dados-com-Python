@@ -1,6 +1,4 @@
-Vamos criar um exemplo de código em Python que combina os conceitos de Programação Orientada a Objetos (POO), incluindo métodos públicos, privados e protegidos, métodos construtores e destrutores, herança simples e múltipla, e encapsulamento. 
-
-### Cenário: Sistema de Gerenciamento de Animais
+### Sistema de Gerenciamento de Animais
 
 Neste exemplo, vamos desenvolver um sistema que gerencia diferentes tipos de animais em um zoológico. Teremos uma superclasse `Animal`, subclasses específicas como `Mamifero` e `Ave`, e uma subclasse que herda de ambas chamada `Pinguim`. O sistema também demonstrará o uso de métodos públicos, privados e protegidos, bem como construtores e destrutores.
 
